@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'common/global.dart';
+
+void main() => Global.init().then((e) => runApp(MyApp));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

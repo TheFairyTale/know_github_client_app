@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:know_github_client_app/models/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'cache_object.dart';
+
 // 提供五套可选主题色
 const _themes = <MaterialColor>[
   Colors.blue,

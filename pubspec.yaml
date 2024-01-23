@@ -38,6 +38,10 @@ dependencies:
   json_annotation: ^4.8.1
   json_model: ^1.0.0
   shared_preferences: ^2.2.2
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  dio: ^5.4.0
 
 dev_dependencies:
   flutter_test:

@@ -177,6 +177,14 @@ packages:
       url: "https://pub-web.flutter-io.cn"
     source: hosted
     version: "2.3.4"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      sha256: "797e1e341c3dd2f69f2dad42564a6feff3bfb87187d05abb93b9609e6f1645c3"
+      url: "https://pub-web.flutter-io.cn"
+    source: hosted
+    version: "5.4.0"
   fake_async:
     dependency: transitive
     description:
@@ -222,6 +230,11 @@ packages:
       url: "https://pub-web.flutter-io.cn"
     source: hosted
     version: "2.0.3"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -272,6 +285,14 @@ packages:
       url: "https://pub-web.flutter-io.cn"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
+      url: "https://pub-web.flutter-io.cn"
+    source: hosted
+    version: "0.18.0"
   io:
     dependency: transitive
     description:
