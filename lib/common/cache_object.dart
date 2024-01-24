@@ -35,7 +35,12 @@ class NetCache extends Interceptor {
       return handler.next(options);
     }
 
-// refresh 标记是否是'下拉刷新'
+    // refresh 标记是否是'下拉刷新'
+    // dio包的option.extra是专门用于扩展请求参数的
+    // 我们通过定义了“refresh”和“noCache”两个参数实现了“针对特定接口或请求来
+    // 决定是否启用缓存的机制”
+    // 面积含义 refresh	如果为true，则本次请求不使用缓存，但新的请求结果依然会被缓存
+    // noCache 本次请求禁用缓存，请求结果也不会被缓存。
     bool refresh = options.extra["refresh"] == true;
     // 如果是下拉刷新，则先删除相关的缓存
     if (refresh) {
