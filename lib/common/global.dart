@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:know_github_client_app/common/git.dart';
 import 'package:know_github_client_app/models/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +26,7 @@ class Global {
   static late SharedPreferences _preferences;
   static Profile profile = Profile();
 // 网络缓存对象
-  static NetCache netCache = netCache();
+  static NetCache netCache = NetCache();
 
   // 可选的主题列表
   static List<MaterialColor> get themes => _themes;
