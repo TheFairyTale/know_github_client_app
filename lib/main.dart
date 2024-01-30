@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:know_github_client_app/common/locale_model.dart';
+import 'package:know_github_client_app/common/theme_model.dart';
+import 'package:know_github_client_app/common/user_model.dart';
+import 'package:provider/provider.dart';
 
 import 'common/global.dart';
 
@@ -10,7 +15,73 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiPro;
+    // 根widget, MultiProvider，
+    // 它将主题、用户、语言三种状态绑定到了应用的根上，
+    // 如此一来，任何路由中都可以通过Provider.of()来获取这些状态，
+    // 也就是说这三种状态是全局共享的！
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThemeModel()),
+          ChangeNotifierProvider(create: (_) => UserModel()),
+          ChangeNotifierProvider(create: (_) => LocaleModel()),
+        ],
+        child: Consumer2<ThemeModel, LocaleModel>(
+            builder: (BuildContext context, themeModel, localeModel, child) {
+          // MaterialApp 依赖/消费 了ThemeModel，LocaleModel
+          // 所以当APP主题或语言改变时MaterialApp会重新构建
+          return MaterialApp(
+            theme: ThemeData(
+              primarySwatch: themeModel.theme,
+            ),
+            onGenerateTitle: (context) {
+              return GmLocalizations.of(context).title;
+            },
+
+            // 应用主页
+            home: HomeRoute(),
+            locale: localeModel.getLocale(),
+
+            // 配置了的App 支持的语言列表
+            // 只支持美国英语和中文简体
+            supportedLocales: [
+              const Locale('en', 'US'),
+              const Locale('zh', 'CN'),
+            ],
+            localizationsDelegates: [
+              // 本地化的代理类
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+
+              // 为了支持多语言，我们实现了一个GmLocalizationsDelegate
+              // 子Widget中都可以通过GmLocalizations 来动态获取APP当前语言对应的文案
+              GmLocalizationDelegate()
+            ],
+
+            // 监听系统语言改变事件
+            localeResolutionCallback: (_locale, supportedLocales) {
+              if (localeModel.getLocale() != null) {
+                // 如果已经选定语言，则不跟随系统的设置
+                return localeModel.getLocale();
+              } else {
+                // 跟随系统设定
+                Locale locale;
+                if (supportedLocales.contains(_locale)) {
+                  locale = _locale!;
+                } else {
+                  // 如果系统语言不是中文或英语，则默认语言使用英语
+                  locale = Locale('en', 'US');
+                }
+                return locale;
+              }
+            },
+            // 注册路由表
+            routes: <String, WidgetBuilder>{
+              "login": (context) => LoginRoute(),
+              "themes": (context) => ThemeChangeRoute(),
+              "language": (context) => LanguageRoute(),
+            },
+          );
+        }));
   }
 }
 
