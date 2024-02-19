@@ -86,6 +86,7 @@ class NetCache extends Interceptor {
 
   _saveCache(Response object) {
     RequestOptions options = object.requestOptions;
+
     if (options.extra["noCache"] != true &&
         options.method.toLowerCase() == "get") {
       // 如果缓存数量超过最大数量限制，则先移除最早的一条记录

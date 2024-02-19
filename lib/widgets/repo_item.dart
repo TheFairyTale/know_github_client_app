@@ -36,6 +36,8 @@ class _RepoItemState extends State<RepoItem> {
             children: <Widget>[
               ListTile(
                 dense: true,
+                // 构建项目拥有者头像时调用了gmAvatar(…)方法，
+                // 该方法是是一个全局工具函数，专门用于获取头像图片
                 leading: GmAvatar.gmAvatar(
                   // github项目owner 头像
                   widget.repo.owner.avatar_url,
@@ -52,6 +54,7 @@ class _RepoItemState extends State<RepoItem> {
               ),
               // 构建项目标题与简介
               Padding(
+                // todo 这是什么意思？
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,6 +93,7 @@ class _RepoItemState extends State<RepoItem> {
                   ],
                 ),
               ),
+              // 构建卡片底部信息
               _buildBottom(),
             ],
           ),
@@ -130,8 +134,9 @@ class _RepoItemState extends State<RepoItem> {
                 ),
                 // 自定义的图标
                 // 由于Flutter 的Material 图标库中没有fork图标，
-                //所以我们在iconfont.cn上找了一个fork图标，
-                //然后根据“3.3 图片及Icon”一节中介绍的使用自定义字体图标的方法集成到了我们的项目中
+                // 所以我们在iconfont.cn上找了一个fork图标，
+                // 然后根据“3.3 图片及Icon”一节中介绍的使用自定义字体图标的方法集成到了我们的项目中
+                // https://book.flutterchina.club/chapter3/img_and_icon.html
                 Icon(MyIcons.fork),
                 Text(widget.repo.forks_count.toString().padRight(paddingWidth)),
               ];

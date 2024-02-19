@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'common/global.dart';
 
+/// App 入口函数，初始化完成后才会加载UI(也就是MyApp)，MyApp 是应用的入口Widget
 void main() => Global.init().then((e) => runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // 根widget, MultiProvider，
+    // 根widget是MultiProvider，
     // 它将主题、用户、语言三种状态绑定到了应用的根上，
     // 如此一来，任何路由中都可以通过Provider.of()来获取这些状态，
     // 也就是说这三种状态是全局共享的！
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         ],
         child: Consumer2<ThemeModel, LocaleModel>(
             builder: (BuildContext context, themeModel, localeModel, child) {
-          // MaterialApp 依赖/消费 了ThemeModel，LocaleModel
+          // 在构建MaterialApp时，我们配置了APP支持的语言列表，以及监听了系统语言改变事件
+          // MaterialApp 则依赖/消费 了ThemeModel，LocaleModel
           // 所以当APP主题或语言改变时MaterialApp会重新构建
           return MaterialApp(
             theme: ThemeData(

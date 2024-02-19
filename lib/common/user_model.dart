@@ -15,4 +15,11 @@ class UserModel extends ProfileChangeNotifier {
       notifyListeners();
     }
   }
+
+  /// 当登出时，调用该方法将user 对象置为空
+  set logout(User user) {
+    profile.user = user;
+    // 置空时是否需要调用该方法？
+    notifyListeners();
+  }
 }

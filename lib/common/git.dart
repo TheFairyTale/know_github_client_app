@@ -7,6 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:know_github_client_app/common/global.dart';
 import 'package:know_github_client_app/models/index.dart';
 
+/// 一个完整的APP，可能会涉及很多网络请求，为了便于管理、收敛请求入口，工程上最好的作法
+/// 就是将所有网络请求放到同一个源码文件中。
+/// 由于我们的接口都是请求的Github 开发平台提供的API，所以我们定义一个Git类，
+/// 专门用于Github API接口调用。另外，在调试过程中，我们通常需要一些工具来查看网络请求
+/// 、响应报文，使用网络代理工具来调试网络数据问题是主流方式。
+/// 配置代理需要在应用中指定代理服务器的地址和端口，另外Github API是HTTPS协议，
+/// 所以在配置完代理后还应该禁用证书校验，
+/// 这些配置我们在Git类初始化时执行（init()方法）。
+
 /// 在本实例中，我们只用到了登录接口和获取用户项目的接口，
 /// 所以在Git类中只定义了login(…)和getRepos(…)方法，
 /// 如果读者要在本实例的基础上扩充功能，读者可以将其他的接口请求方法添加到Git类中，
@@ -28,6 +37,8 @@ class Git {
     },
   ));
 
+  /// 该方法判断了是否是调试环境，然后做了一些针对调试环境的网络配置（设置代理和禁用证书校验）
+  /// 该方法是应用启动时被调用的（Global.init()方法中会调用Git.init()）
   static void init() {
     // 添加缓存插件
     dio.interceptors.add(Global.netCache);
