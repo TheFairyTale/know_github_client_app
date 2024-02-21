@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "0b2f2bd91ba804e53a61d757b986f89f1f9eaed5b11e4b2f5a2468d86d6c9fc7"
+      sha256: ae92f5d747aee634b87f89d9946000c2de774be1d6ac3e58268224348cd0101a
       url: "https://pub-web.flutter-io.cn"
     source: hosted
-    version: "67.0.0"
+    version: "61.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "37577842a27e4338429a1cbc32679d508836510b056f1eedf0c8d20e39c1383d"
+      sha256: ea3d8652bda62982addfd92fdc2d0214e5f82e43325104990d4f4c4a2a313562
       url: "https://pub-web.flutter-io.cn"
     source: hosted
-    version: "6.4.1"
+    version: "5.13.0"
   args:
     dependency: transitive
     description:
@@ -197,10 +197,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "40ae61a5d43feea6d24bd22c0537a6629db858963b99b4bc1c3db80676f32368"
+      sha256: "1efa911ca7086affd35f463ca2fc1799584fb6aa89883cf0af8e3664d6a02d55"
       url: "https://pub-web.flutter-io.cn"
     source: hosted
-    version: "2.3.4"
+    version: "2.3.2"
   dio:
     dependency: "direct main"
     description:
@@ -267,6 +267,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_platform_alert:
+    dependency: "direct main"
+    description:
+      name: flutter_platform_alert
+      sha256: "7e4b6fa8bf407522bf4ee1c245129c9974359833867c28826d1b2604bb3c2806"
+      url: "https://pub-web.flutter-io.cn"
+    source: hosted
+    version: "0.5.1"
+  flutter_smart_dialog:
+    dependency: "direct main"
+    description:
+      name: flutter_smart_dialog
+      sha256: e9ee69eeac16165d142f1974b4db05ca9846cffafb7c94674a38ec07d7e6cda1
+      url: "https://pub-web.flutter-io.cn"
+    source: hosted
+    version: "4.9.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -333,6 +349,14 @@ packages:
       url: "https://pub-web.flutter-io.cn"
     source: hosted
     version: "0.18.1"
+  intl_generator:
+    dependency: "direct dev"
+    description:
+      name: intl_generator
+      sha256: "120e03ccefe0c215801e44a8ccbaeabe6c895c5792f44298133745ab0a0e0bf5"
+      url: "https://pub-web.flutter-io.cn"
+    source: hosted
+    version: "0.4.1"
   io:
     dependency: transitive
     description:
@@ -525,6 +549,14 @@ packages:
       url: "https://pub-web.flutter-io.cn"
     source: hosted
     version: "2.2.1"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: cb3798bef7fc021ac45b308f4b51208a152792445cce0448c9a4ba5879dd8750
+      url: "https://pub-web.flutter-io.cn"
+    source: hosted
+    version: "5.4.0"
   platform:
     dependency: transitive
     description:

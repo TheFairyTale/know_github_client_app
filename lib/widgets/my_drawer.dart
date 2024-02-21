@@ -1,7 +1,7 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:know_github_client_app/common/user_model.dart';
+import 'package:know_github_client_app/l10n/gm_localizations.dart';
+import 'package:know_github_client_app/models/user.dart';
 import 'package:know_github_client_app/util/gm_avatar.dart';
 import 'package:provider/provider.dart';
 
@@ -103,7 +103,7 @@ class MyDrawer extends StatelessWidget {
                                 // userModel.user = null;
                                 // 用户点击“注销”，userModel.user 会被置空，
                                 // 此时所有依赖userModel的组件都会被rebuild，如主页会恢复成未登录的状态
-                                userModel.logout(null);
+                                userModel.user = User();
                                 Navigator.pop(context);
                               },
                               child: Text(gm.yes)),

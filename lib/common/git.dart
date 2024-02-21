@@ -29,13 +29,21 @@ class Git {
 
   BuildContext? context;
   late Options _options;
+  static String _pwd = "";
+  static String basic = 'Bearer ' + base64.encode(utf8.encode('$_pwd'));
   static Dio dio = Dio(BaseOptions(
     baseUrl: 'https://api.github.com/',
     headers: {
-      HttpHeaders.acceptHeader: "application/vnd.github.squirrel-girl-preview,"
-          "application/vnd.github.symmetra-preview+json",
+      // HttpHeaders.acceptHeader: "application/vnd.github.squirrel-girl-preview,"
+      //     "application/vnd.github.symmetra-preview+json",
+      HttpHeaders.authorizationHeader: basic,
+      "X-GitHub-Api-Version": "2022-11-28"
     },
   ));
+
+  static set setPwd(String pwd) {
+    _pwd = pwd;
+  }
 
   /// 该方法判断了是否是调试环境，然后做了一些针对调试环境的网络配置（设置代理和禁用证书校验）
   /// 该方法是应用启动时被调用的（Global.init()方法中会调用Git.init()）
@@ -61,13 +69,14 @@ class Git {
 
   /// 登陆接口，登陆完成返回用户信息
   Future<User> login(String login, String pwd) async {
-    String basic = 'Basic' + base64.encode(utf8.encode('$login:$pwd'));
+    //String basic = 'Basic' + base64.encode(utf8.encode('$login:$pwd'));
+    _pwd = pwd;
+
     var r = await dio.get(
-      '/user',
-      options: _options.copyWith(headers: {
-        HttpHeaders.authorizationHeader: basic
-      }, extra: {
-        // 本登陆接口禁止换成。
+      // '/user',
+      '/octocat',
+      options: _options.copyWith(headers: {}, extra: {
+        // 本登陆接口禁止缓存。
         "noCache": true,
       }),
     );

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:know_github_client_app/common/locale_model.dart';
 import 'package:know_github_client_app/common/theme_model.dart';
 import 'package:know_github_client_app/common/user_model.dart';
+import 'package:know_github_client_app/l10n/gm_localizations.dart';
+import 'package:know_github_client_app/l10n/gm_localizations_delegate.dart';
+import 'package:know_github_client_app/routes/home_page.dart';
+import 'package:know_github_client_app/routes/language_route.dart';
+import 'package:know_github_client_app/routes/login_route.dart';
+import 'package:know_github_client_app/routes/theme_change_route.dart';
 import 'package:provider/provider.dart';
 
 import 'common/global.dart';
@@ -33,7 +40,7 @@ class MyApp extends StatelessWidget {
           // 所以当APP主题或语言改变时MaterialApp会重新构建
           return MaterialApp(
             theme: ThemeData(
-              primarySwatch: themeModel.theme,
+              primarySwatch: themeModel.theme as MaterialColor,
             ),
             onGenerateTitle: (context) {
               return GmLocalizations.of(context).title;
@@ -56,7 +63,7 @@ class MyApp extends StatelessWidget {
 
               // 为了支持多语言，我们实现了一个GmLocalizationsDelegate
               // 子Widget中都可以通过GmLocalizations 来动态获取APP当前语言对应的文案
-              GmLocalizationDelegate()
+              GmLocalizationsDelegate()
             ],
 
             // 监听系统语言改变事件
@@ -82,6 +89,9 @@ class MyApp extends StatelessWidget {
               "themes": (context) => ThemeChangeRoute(),
               "language": (context) => LanguageRoute(),
             },
+            // flutter_smart_dialog 初始化
+            navigatorObservers: [FlutterSmartDialog.observer],
+            builder: FlutterSmartDialog.init(),
           );
         }));
   }

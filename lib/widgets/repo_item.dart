@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:know_github_client_app/l10n/gm_localizations.dart';
 
 import '../util/gm_avatar.dart';
 import '../models/index.dart';
@@ -137,7 +138,7 @@ class _RepoItemState extends State<RepoItem> {
                 // 所以我们在iconfont.cn上找了一个fork图标，
                 // 然后根据“3.3 图片及Icon”一节中介绍的使用自定义字体图标的方法集成到了我们的项目中
                 // https://book.flutterchina.club/chapter3/img_and_icon.html
-                Icon(MyIcons.fork),
+                Icon(Icons.account_tree_outlined),
                 Text(widget.repo.forks_count.toString().padRight(paddingWidth)),
               ];
 
