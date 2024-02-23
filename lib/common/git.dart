@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:know_github_client_app/common/global.dart';
 import 'package:know_github_client_app/models/index.dart';
 
@@ -30,19 +31,22 @@ class Git {
   BuildContext? context;
   late Options _options;
   static String _pwd = "";
-  static String basic = 'Bearer ' + base64.encode(utf8.encode('$_pwd'));
+  static String _basic = '';
   static Dio dio = Dio(BaseOptions(
     baseUrl: 'https://api.github.com/',
     headers: {
       // HttpHeaders.acceptHeader: "application/vnd.github.squirrel-girl-preview,"
       //     "application/vnd.github.symmetra-preview+json",
-      HttpHeaders.authorizationHeader: basic,
+      HttpHeaders.authorizationHeader: _basic,
       "X-GitHub-Api-Version": "2022-11-28"
     },
   ));
 
-  static set setPwd(String pwd) {
+  set basic(String pwd) {
+    print("basic() 输入值：" + pwd);
     _pwd = pwd;
+    _basic = 'Bearer ' + _pwd;
+    // _basic = 'Bearer ${base64.encode(utf8.encode(_pwd))}';
   }
 
   /// 该方法判断了是否是调试环境，然后做了一些针对调试环境的网络配置（设置代理和禁用证书校验）
@@ -70,26 +74,55 @@ class Git {
   /// 登陆接口，登陆完成返回用户信息
   Future<User> login(String login, String pwd) async {
     //String basic = 'Basic' + base64.encode(utf8.encode('$login:$pwd'));
-    _pwd = pwd;
+    basic = pwd;
+    Map<String, dynamic> jsonedResp = Map();
+
+    // print("now pwd: " + _pwd);
+    print(HttpHeaders.authorizationHeader + ": " + _basic);
 
     var r = await dio.get(
       // '/user',
       '/octocat',
-      options: _options.copyWith(headers: {}, extra: {
+      options: _options.copyWith(headers: {
+        HttpHeaders.authorizationHeader: _basic,
+        "X-GitHub-Api-Version": "2022-11-28"
+      }, extra: {
         // 本登陆接口禁止缓存。
         "noCache": true,
       }),
     );
 
+    var resp = r.data;
+    if (resp is String) {
+      // await FlutterPlatformAlert.showAlert(
+      //   windowTitle: 'exception error: ',
+      //   text: resp,
+      //   alertStyle: AlertButtonStyle.yesNoCancel,
+      //   iconStyle: IconStyle.information,
+      // );
+      // // todo 可能是错误的返回.
+      // return User();
+      print("返回请求：" + resp);
+
+      RequestOptions ro = RequestOptions();
+      ro.data = resp;
+      // 登陆不成功时让其报出错误使外部调用方捕获错误进行处理
+      throw DioException.badResponse(
+          statusCode: 401,
+          requestOptions: ro,
+          response: Response(requestOptions: ro));
+    }
+
     // 登陆成功后更新公共头（authorization)，之后所有请求都会带上用户身份信息.
-    dio.options.headers[HttpHeaders.authorizationHeader] = basic;
+    dio.options.headers[HttpHeaders.authorizationHeader] = _basic;
 
     // 清空所有缓存
     Global.netCache.cache.clear();
     // 更新profile 中的token 信息
-    Global.profile.token = basic;
+    Global.profile.token = _basic;
 
-    return User.fromJson(r.data);
+// 如果login 按钮按下后请求成功:
+    return User.fromJson(resp);
   }
 
   /// 获取用户项目列表

@@ -30,7 +30,7 @@ class LocaleModel extends ProfileChangeNotifier {
     }
   }
 
-  set locale(String locale) {
+  set locale(String? locale) {
     if (locale != profile.locale) {
       profile.locale = locale;
       // 通知其他、所有依赖项进行更新

@@ -87,5 +87,9 @@ class GmLocalizations {
   String get userName {
     return isZh ? "用户名" : "Username";
   }
+
+  String get cleanCache {
+    return isZh ? "清除所有缓存" : "clear cache";
+  }
   // 其他希望跟随语言变化而变化的值...
 }

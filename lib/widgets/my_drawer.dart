@@ -43,6 +43,8 @@ class MyDrawer extends StatelessWidget {
                   child: value.isLogin
                       ? GmAvatar.gmAvatar(value.user!.avatar_url, width: 80)
                       : Image.asset(
+                          // todo cannot load image asset: imgs/avatar-default.png
+                          // not found
                           "imgs/avatar-default.png",
                           width: 80,
                         ),
