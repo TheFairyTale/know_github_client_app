@@ -4,7 +4,26 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User {
-  User();
+  User() {
+    // init
+    login = "";
+    avatar_url = "";
+    type = "";
+    name = "";
+    company = "";
+    blog = "";
+    location = "";
+    email = "";
+    hireable = false;
+    bio = "";
+    public_repos = 0;
+    followers = 0;
+    following = 0;
+    created_at = "";
+    updated_at = "";
+    total_private_repos = 0;
+    owned_private_repos = 0;
+  }
 
   late String login;
   late String avatar_url;

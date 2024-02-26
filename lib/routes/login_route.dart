@@ -46,26 +46,26 @@ class _LoginRouteState extends State<LoginRoute> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: <Widget>[
-              TextFormField(
-                  autofocus: _nameAutoFocus,
-                  controller: _unameController,
-                  decoration: InputDecoration(
-                    labelText: gm.userName,
-                    hintText: gm.userName,
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                  // 校验用户名（不能为空）
-                  validator: (v) {
-                    return v == null || v.trim().isNotEmpty
-                        ? null
-                        : gm.userNameRequired;
-                  }),
+              // TextFormField(
+              //     autofocus: _nameAutoFocus,
+              //     controller: _unameController,
+              //     decoration: InputDecoration(
+              //       labelText: gm.userName,
+              //       hintText: gm.userName,
+              //       prefixIcon: Icon(Icons.person),
+              //     ),
+              //     // 校验用户名（不能为空）
+              //     validator: (v) {
+              //       return v == null || v.trim().isNotEmpty
+              //           ? null
+              //           : gm.userNameRequired;
+              //     }),
               TextFormField(
                 controller: _pwdController,
                 autofocus: !_nameAutoFocus,
                 decoration: InputDecoration(
-                    labelText: gm.password,
-                    hintText: gm.password,
+                    labelText: gm.token,
+                    hintText: gm.tokenRequired,
                     prefixIcon: Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(

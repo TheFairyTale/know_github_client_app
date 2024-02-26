@@ -16,5 +16,13 @@ class Profile {
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
       _$ProfileFromJson(json);
-  Map<String, dynamic> toJson() => _$ProfileToJson(this);
+  Map<String, dynamic> toJson() {
+    User? user = this.user;
+    Map<String, dynamic>? jsonedUserObj = user?.toJson();
+
+    // is ok?
+    this.user = jsonedUserObj as User?;
+
+    return _$ProfileToJson(this);
+  }
 }

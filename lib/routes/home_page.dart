@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:know_github_client_app/common/git.dart';
 import 'package:know_github_client_app/common/user_model.dart';
 import 'package:know_github_client_app/l10n/gm_localizations.dart';
@@ -94,20 +96,41 @@ class _HomeRouteState extends State<HomeRoute> {
   ///
   void _retrieveData() async {
     // Git(context).getRepos() 需要refresh 参数来判断是否使用缓存
-    var data = await Git(context).getRepos(
-      queryParam: {
-        'page': page,
-        'page_size': 20,
-      },
-    );
+    try {
+      var data = await Git(context).getRepos(
+        queryParam: {
+          'page': page,
+          'page_size': 20,
+        },
+      );
 
-    // 如果返回的数据小于指定的条数，则代表没有更多的数据，反之则否
-    //
-    hasMore = data.length > 0 && data.length % 20 == 0;
-    // 把请求到的新数据添加到items 中
-    setState(() {
-      _items.insertAll(_items.length - 1, data);
-      page++;
-    });
+      // 如果返回的数据小于指定的条数，则代表没有更多的数据，反之则否
+      //
+      hasMore = data.length > 0 && data.length % 20 == 0;
+      // 把请求到的新数据添加到items 中
+      setState(() {
+        _items.insertAll(_items.length - 1, data);
+        page++;
+      });
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        await FlutterPlatformAlert.showAlert(
+          windowTitle:
+              GmLocalizations.of(context).userNameOrPasswordWrongNeedRelogin,
+          text: GmLocalizations.of(context).userNameOrPasswordWrongNeedRelogin,
+          alertStyle: AlertButtonStyle.yesNoCancel,
+          iconStyle: IconStyle.information,
+        );
+        Navigator.of(context).pushNamed("login");
+        // showToast();
+      } else {
+        await FlutterPlatformAlert.showAlert(
+          windowTitle: '',
+          text: e.toString(),
+          alertStyle: AlertButtonStyle.yesNoCancel,
+          iconStyle: IconStyle.information,
+        );
+      }
+    }
   }
 }

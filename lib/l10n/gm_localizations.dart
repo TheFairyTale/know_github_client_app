@@ -72,12 +72,26 @@ class GmLocalizations {
     return isZh ? "用户名或密码错误" : "UserName or Password wrong.";
   }
 
+  String get userNameOrPasswordWrongNeedRelogin {
+    return isZh
+        ? "Token过期，无法载入您的项目列表\n您可能需要重新登陆"
+        : "Token expired. Cannot read repos.\nYou may need relogin.";
+  }
+
   String get passwordRequired {
     return isZh ? "需要密码" : "need Password";
   }
 
   String get password {
     return isZh ? "需要密码" : "input password";
+  }
+
+  String get tokenRequired {
+    return isZh ? "Token" : "token";
+  }
+
+  String get token {
+    return isZh ? "需要Token" : "token need.";
   }
 
   String get userNameRequired {
