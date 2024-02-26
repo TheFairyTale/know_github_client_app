@@ -16,14 +16,14 @@ class User {
   String? email;
   bool? hireable;
   String? bio;
-  late num public_repos;
-  late num followers;
-  late num following;
-  late String created_at;
-  late String updated_at;
-  late num total_private_repos;
-  late num owned_private_repos;
-  
-  factory User.fromJson(Map<String,dynamic> json) => _$UserFromJson(json);
+  late num? public_repos;
+  late num? followers;
+  late num? following;
+  late String? created_at;
+  late String? updated_at;
+  late num? total_private_repos;
+  late num? owned_private_repos;
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }

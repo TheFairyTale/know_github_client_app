@@ -17,13 +17,14 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..email = json['email'] as String?
   ..hireable = json['hireable'] as bool?
   ..bio = json['bio'] as String?
-  ..public_repos = json['public_repos'] as num
-  ..followers = json['followers'] as num
-  ..following = json['following'] as num
-  ..created_at = json['created_at'] as String
-  ..updated_at = json['updated_at'] as String
-  ..total_private_repos = json['total_private_repos'] as num
-  ..owned_private_repos = json['owned_private_repos'] as num;
+  // todo 登陆阶段该值的类型为num，登陆成功后展示主页数据阶段该字段内容为Null
+  ..public_repos = json['public_repos'] as num?
+  ..followers = json['followers'] as num?
+  ..following = json['following'] as num?
+  ..created_at = json['created_at'] as String?
+  ..updated_at = json['updated_at'] as String?
+  ..total_private_repos = json['total_private_repos'] as num?
+  ..owned_private_repos = json['owned_private_repos'] as num?;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'login': instance.login,

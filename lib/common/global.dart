@@ -41,9 +41,15 @@ class Global {
     WidgetsFlutterBinding.ensureInitialized();
     _preferences = await SharedPreferences.getInstance();
     var _profile = _preferences.getString("profile");
+    // try {
+
+    // } catch (e) {
+    //   print(e);
+    // }
     if (_profile != null) {
       try {
-        profile = Profile.fromJson(jsonDecode(_profile));
+        dynamic profileDecoded = jsonDecode(_profile);
+        profile = Profile.fromJson(profileDecoded);
       } catch (e) {
         print(e);
       }

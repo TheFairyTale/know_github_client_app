@@ -61,13 +61,13 @@ class _RepoItemState extends State<RepoItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.repo.fork
+                      (widget.repo.fork ?? false)
                           ? widget.repo.full_name
                           : widget.repo.name,
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        fontStyle: widget.repo.fork
+                        fontStyle: (widget.repo.fork ?? false)
                             ? FontStyle.italic
                             : FontStyle.normal,
                       ),
@@ -142,7 +142,7 @@ class _RepoItemState extends State<RepoItem> {
                 Text(widget.repo.forks_count.toString().padRight(paddingWidth)),
               ];
 
-              if (widget.repo.fork) {
+              if ((widget.repo.fork ?? false)) {
                 children.add(Text("Forked".padRight(paddingWidth)));
               }
 

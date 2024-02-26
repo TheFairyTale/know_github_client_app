@@ -38,7 +38,9 @@ class Git {
       // HttpHeaders.acceptHeader: "application/vnd.github.squirrel-girl-preview,"
       //     "application/vnd.github.symmetra-preview+json",
       HttpHeaders.authorizationHeader: _basic,
-      "X-GitHub-Api-Version": "2022-11-28"
+      //     'token ' + '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',
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Accept": "application/vnd.github+json"
     },
   ));
 
@@ -78,40 +80,47 @@ class Git {
     Map<String, dynamic> jsonedResp = Map();
 
     // print("now pwd: " + _pwd);
-    print(HttpHeaders.authorizationHeader + ": " + _basic);
+    // print(HttpHeaders.authorizationHeader + ": " + _basic);
+
+    // print("dio.options.method： " + dio.options.method);
+    // print("dio.options.headers： " + dio.options.headers.toString());
 
     var r = await dio.get(
-      // '/user',
-      '/octocat',
+      '/user',
+      // '/octocat',
       options: _options.copyWith(headers: {
         HttpHeaders.authorizationHeader: _basic,
-        "X-GitHub-Api-Version": "2022-11-28"
+        // "X-GitHub-Api-Version": "2022-11-28"
+        // HttpHeaders.authorizationHeader:
+        //     'token ' + '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',
       }, extra: {
         // 本登陆接口禁止缓存。
         "noCache": true,
       }),
     );
 
+// 如果返回的是String 类型的内容且为小猫画像，则是token 验证成功了
     var resp = r.data;
-    if (resp is String) {
-      // await FlutterPlatformAlert.showAlert(
-      //   windowTitle: 'exception error: ',
-      //   text: resp,
-      //   alertStyle: AlertButtonStyle.yesNoCancel,
-      //   iconStyle: IconStyle.information,
-      // );
-      // // todo 可能是错误的返回.
-      // return User();
-      print("返回请求：" + resp);
 
-      RequestOptions ro = RequestOptions();
-      ro.data = resp;
-      // 登陆不成功时让其报出错误使外部调用方捕获错误进行处理
-      throw DioException.badResponse(
-          statusCode: 401,
-          requestOptions: ro,
-          response: Response(requestOptions: ro));
-    }
+    // if (resp is String) {
+    //   // await FlutterPlatformAlert.showAlert(
+    //   //   windowTitle: 'exception error: ',
+    //   //   text: resp,
+    //   //   alertStyle: AlertButtonStyle.yesNoCancel,
+    //   //   iconStyle: IconStyle.information,
+    //   // );
+    //   // // todo 可能是错误的返回.
+    //   // return User();
+    //   print("返回请求：" + resp);
+
+    //   RequestOptions ro = RequestOptions();
+    //   ro.data = resp;
+    //   // 登陆不成功时让其报出错误使外部调用方捕获错误进行处理
+    //   throw DioException.badResponse(
+    //       statusCode: 401,
+    //       requestOptions: ro,
+    //       response: Response(requestOptions: ro));
+    // }
 
     // 登陆成功后更新公共头（authorization)，之后所有请求都会带上用户身份信息.
     dio.options.headers[HttpHeaders.authorizationHeader] = _basic;

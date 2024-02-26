@@ -15,8 +15,8 @@ Repo _$RepoFromJson(Map<String, dynamic> json) => Repo()
       ? null
       : Repo.fromJson(json['parent'] as Map<String, dynamic>)
   ..private = json['private'] as bool
-  ..description = json['description'] as String
-  ..fork = json['fork'] as bool
+  ..description = json['description'] as String?
+  ..fork = json['fork'] as bool?
   ..language = json['language'] as String?
   ..forks_count = json['forks_count'] as num
   ..stargazers_count = json['stargazers_count'] as num
@@ -26,7 +26,7 @@ Repo _$RepoFromJson(Map<String, dynamic> json) => Repo()
   ..pushed_at = json['pushed_at'] as String
   ..created_at = json['created_at'] as String
   ..updated_at = json['updated_at'] as String
-  ..subscribers_count = json['subscribers_count'] as num?
+  // ..subscribers_count = json['subscribers_count'] as num?
   ..license = json['license'] as Map<String, dynamic>?;
 
 Map<String, dynamic> _$RepoToJson(Repo instance) => <String, dynamic>{
@@ -47,6 +47,6 @@ Map<String, dynamic> _$RepoToJson(Repo instance) => <String, dynamic>{
       'pushed_at': instance.pushed_at,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
-      'subscribers_count': instance.subscribers_count,
+      // 'subscribers_count': instance.subscribers_count,
       'license': instance.license,
     };
