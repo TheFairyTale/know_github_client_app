@@ -46,6 +46,7 @@ dependencies:
   cached_network_image: ^3.3.1
   flutter_platform_alert: ^0.5.1
   flutter_smart_dialog: ^4.9.6
+  msix: ^3.16.7
 
 dev_dependencies:
   flutter_test:
